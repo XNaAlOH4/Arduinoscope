@@ -1,0 +1,49 @@
+In the main loop:
+
+		// Since, reading from Serial Port is slow, we increase the number of bytes we read in each call to reduce overhead
+		// In this case, maybe try reading in 4 packets at a time?
+		// Then hopefully by the time the 4 packets are displayed, the next 4 are already ready??
+
+
+		// Read in serial data from the board and plot the point on the display
+		// Also save the data to a csv file
+		// Probably just use a separate thread to save the data, cause of how slow it is to write to files?? or maybe not, or maybe yes
+		// We will need to keep 2 buffers 1 to save to file and the other for the screen's current display
+
+		/*printf("Reached\n");
+		char off = 0;
+		while(off != MAX_BYTES) {
+			ssize_t bytes_read = read(fp_fd, input+off, MAX_BYTES-off);
+			off += bytes_read;
+		}
+		printf("Reached 1\n");*/
+
+		/*unsigned char * tmp = memchr(input, 'N', off);
+		char diff = tmp - input;
+		if(diff != 2) {
+			// Both cases need to correct height
+			heights = (short*)(input+2+diff);
+
+			if(diff < 2) {
+				// We over-read the data and also managed to miss some bytes
+				// Either we shift heights or we shift bytes in input, i think it will be easier if we shift heights,
+				// cause inputs is byte by byte, but height is just 1 int;
+				// We need to change how much is read upon next read and also offset where the data is put to
+				// make up for the extra bytes we read
+				printf("Edge case 0\n");
+				// so I guess we either test for this case after Rendering, to change a variable, or we change the variable now, but later then we move the unread values to the front , it's easier to just do both at once, so I just shift the handling of this case to the back after Rendering
+			}else {
+				// We underread the previous time???
+				//So I guess we just discard the unread parts, we can shift height I guess and then we also need to 
+				//read in extra bytes after to correct for the underread this time due to the previus unread bytes;
+				// This reading will happen now I guess, first we need to allocate 1 more packet's worth of space just in case of this scenario, then just read in the data
+				printf("Edge case 1\n");
+				read(fp_fd, input+MAX_BYTES, diff-2);
+				// Now it's all solved
+			}
+		}*/
+		/*for(int i = 0; i < packets; i++) {
+			if(strncmp((char*)(input+i*8), "SyNK", 4) != 0) {
+				printf("Weird data(%d): %.4s\n", i, input+i*8);
+			}
+		}*/
